@@ -12,6 +12,7 @@ class Pokemon {
     required this.order,
     required this.pictures,
     required this.weight,
+    required this.isFav,
   });
   final int baseExperience;
   final int height;
@@ -21,6 +22,7 @@ class Pokemon {
   final int order;
   final Pictures pictures;
   final int weight;
+  bool isFav;
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
@@ -32,6 +34,7 @@ class Pokemon {
       'order': order,
       'pictures': pictures.toMap(),
       'weight': weight,
+      'isFav': isFav,
     };
   }
 
@@ -45,6 +48,7 @@ class Pokemon {
       order: map['order'] as int,
       pictures: Pictures.fromMap(map['pictures'] as Map<String, dynamic>),
       weight: map['weight'] as int,
+      isFav: map['isFav'] as bool,
     );
   }
 

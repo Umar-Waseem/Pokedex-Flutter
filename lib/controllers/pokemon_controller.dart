@@ -4,7 +4,7 @@ import '../models/pokemon/pictures.dart';
 import '../models/pokemon/pokemon.dart';
 
 class PokemonController with ChangeNotifier {
-  List<Pokemon> pokemons = [
+  List<Pokemon> allPokemons = [
     Pokemon(
       baseExperience: 64,
       height: 7,
@@ -27,6 +27,7 @@ class PokemonController with ChangeNotifier {
         backShinyFemale: null,
       ),
       weight: 69,
+      isFav: false,
     ),
     Pokemon(
       baseExperience: 142,
@@ -50,45 +51,58 @@ class PokemonController with ChangeNotifier {
         backShinyFemale: null,
       ),
       weight: 130,
+      isFav: false,
     ),
   ];
 
+  List<Pokemon> favPokemons = [];
+  
+  void toggleFavPokemon(Pokemon pokemon) {
+    pokemon.isFav = !pokemon.isFav;
+    if (pokemon.isFav) {
+      favPokemons.add(pokemon);
+    } else {
+      favPokemons.remove(pokemon);
+    }
+    notifyListeners();
+  }
+
   // different ways of getting
 
-  List<Pokemon> getPokemons() {
-    return pokemons;
+  List<Pokemon> getAllPokemons() {
+    return allPokemons;
   }
 
   Pokemon getPokemonByIndex(int index) {
-    return pokemons[index];
+    return allPokemons[index];
   }
 
   // create , update, delete pokemons
 
   void addPokemon(Pokemon pokemon) {
-    pokemons.add(pokemon);
+    allPokemons.add(pokemon);
     notifyListeners();
   }
 
   void updatePokemon(int id, Pokemon pokemon) {
-    pokemons[id] = pokemon;
+    allPokemons[id] = pokemon;
     notifyListeners();
   }
 
   void deletePokemon(int index) {
-    pokemons.removeAt(index);
+    allPokemons.removeAt(index);
     notifyListeners();
   }
 
   // manipulate pokemon list
 
   void sortPokemonList() {
-    pokemons.sort((a, b) => a.name.compareTo(b.name));
+    allPokemons.sort((a, b) => a.name.compareTo(b.name));
     notifyListeners();
   }
 
   void removeDuplicatesFromPokemonList() {
-    pokemons = pokemons.toSet().toList();
+    allPokemons = allPokemons.toSet().toList();
     notifyListeners();
   }
 }
